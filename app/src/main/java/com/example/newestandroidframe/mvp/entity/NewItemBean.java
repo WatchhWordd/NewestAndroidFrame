@@ -1,4 +1,4 @@
-package com.example.newestandroidframe.greendao;
+package com.example.newestandroidframe.mvp.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;

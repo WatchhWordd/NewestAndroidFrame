@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.example.newestandroidframe.di.component.AppComponent;
+import com.example.newestandroidframe.di.component.DaggerAppComponent;
+import com.example.newestandroidframe.di.module.AppModule;
 import com.example.newestandroidframe.greendao.DaoMaster;
 import com.example.newestandroidframe.greendao.DaoSession;
 import com.example.newestandroidframe.util.Constants;
@@ -28,6 +31,7 @@ public class FrameApp extends Application {
     private static FrameApp frameApp;
     private RefWatcher refWatcher;
     private static DaoSession daoSession;
+    private AppComponent applicationComponent;
 
     public static FrameApp getInstance() {
         if (frameApp == null) {
@@ -54,6 +58,7 @@ public class FrameApp extends Application {
         initDayLightMode();
         KLog.init(BuildConfig.DEBUG);
         setUpDataBase();
+        initApplicationComponent();
 
         boolean isNight = PreferenceUtil.getInstance().getBoolean(Constants.ISNIGHT);
         if (isNight) {
@@ -63,6 +68,10 @@ public class FrameApp extends Application {
             //不使用夜间模式
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+    }
+
+    private void initApplicationComponent() {
+        applicationComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
     }
 
     private void initLeakcanary() {
@@ -154,5 +163,13 @@ public class FrameApp extends Application {
         // 在 QueryBuilder 类中内置两个 Flag 用于方便输出执行的 SQL 语句与传递参数的值
         QueryBuilder.LOG_SQL = BuildConfig.DEBUG;
         QueryBuilder.LOG_VALUES = BuildConfig.DEBUG;
+    }
+
+    public AppComponent getApplicationComponent() {
+        return applicationComponent;
+    }
+
+    public void setApplicationComponent(AppComponent applicationComponent) {
+        this.applicationComponent = applicationComponent;
     }
 }

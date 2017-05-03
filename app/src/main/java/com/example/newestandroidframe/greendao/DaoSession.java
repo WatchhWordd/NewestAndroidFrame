@@ -8,7 +8,7 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
-import com.example.newestandroidframe.greendao.NewItemBean;
+import com.example.newestandroidframe.mvp.entity.NewItemBean;
 
 import com.example.newestandroidframe.greendao.NewItemBeanDao;
 
